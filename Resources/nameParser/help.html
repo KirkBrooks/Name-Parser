@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Name Parser Help</title>
+  <!-- <link rel="stylesheet" href="PATH"> -->
+
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <div class="container" style="font-size:12px; color:#6a6a6a">
+    <p class="text-left">This is the help file. Small left</p>
+
+    <h5 class="border-bottom">Entity Object</h5>
+    <p>The Name Parser generates an entity object. </p>
+    <div class="row justify-content-start">
+      <div class="col-2">
+        { type: 0,</br>
+        name: "",</br>
+        dba:"",</br>
+        members: [ ],</br>
+        _ID: "" }
+      </div>
+    </div>
+    <p>Type is a number:</p>
+    <ul>
+      <li>0 = individual</li>
+      <li>1 = partnership (married couples)</li>
+      <li>2 = corporation or company</li>
+    </ul>
+    <p>Name is the entity name in default format. For individuals this will be
+      last name, first name.</br>
+      For partnerships it will be last name, first name & first name #2.</br>
+      For companies it will be exactly what was typed in.</p>
+    <p>Dba is the name the entity does business as. This is optional. </p>
+    <p>Members is a collection of the names associated with the entity. For individuals and companies there will be only 1 element. For partnerships it will have two. The member element, or name object, holds the various parts of the name.</p>
+    <p>_ID is assigned a uuid if there is none already.</p>
+
+    <h5 class="border-bottom">The Name Object</h5>
+    <p>There are two kinds of name objects: individuals and companies. Company name objects have a single property: full. </p>
+    <p>Individual name objects have </p>
+
+    <h5 class="border-bottom">This is Heading 5</h5>
+    <p>Parts of a name may be identified explicitly. </p>
+    <table class="table table-sm">
+      <thead>
+        <tr>
+          <th scope="col">Char</th>
+          <th scope="col">Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">=</th>
+          <td>the entity is defined. ie. "=i" for individual; "=2" for corporation</br>
+            "=" (no other chars) to open the subform for manual entry
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">$</th>
+          <td>at start of string indicates a company name. "$Walt Disney"
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">&</th>
+          <td>at start of string indicates a partnership name.
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">dba</th>
+          <td>indicates the following string is 'doing business as' name.
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">[...]</th>
+          <td>explicitly defines the dba name. [My Great Company]
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p>The following only apply to individuals:</p>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <</th> <td>indicates the following word is a prefix.</td>
+        </tr>
+        <tr>
+          <th scope="row">!</th>
+          <td>indicates the following word in the name is the preferred name.</td>
+        </tr>
+        <tr>
+          <th scope="row">~</th>
+          <td>indicates the following word is the preferred name and not part of the usual name.</td>
+        </tr>
+        <tr>
+          <th scope="row">" ... "</th>
+          <td>words inclosed in double quotes are treated as a single word.</br>
+            eg. Klaus "von Barlow"; first name = 'Klaus', last name = 'von Barlow'
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">(...)</th>
+          <td>words enclosed in parens are alternate spelling of the first or last name.</br>
+
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">/.../</th>
+          <td>words enclosed in / characters are the last name.</br>
+            The position within the string doesn't matter and commas are ignored.</td>
+        </tr>
+        <tr>
+          <th scope="row">,</th>
+          <td>It the last name isn't defined the words precedding a comma become the last name.</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+</body>
+
+</html>
