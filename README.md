@@ -37,7 +37,6 @@ will populate $obj as:
       "suffix": "",
       "gender": "",
       "preferred": "Kirk",
-      "full": "",
       "altFirst": [],
       "altLast": [],
       "name": "Kirk Brooks"
@@ -100,6 +99,19 @@ Words enclosed in double quotes are treated as a single phrase.
 ## Alt Names
 
 Alternate spellings of names are designated with parenthesis. 
-` John Smith (Smyth) `
-The 
+
+` John Smith (Smyth) ` or ` John (Jon) \Smith (Smyth)\ `
+
+Editing an entity
+---
+```Entity_edit_form``` provides an interface to easily edit an entity object. For example running this code:
+
+```	
+ $str:="kirk Brooks & mary smith"
+	$obj:=NameStr_parse_toEntityObj ($str)
+	Entity_edit_form ($obj)
+```
+
+results in this form being displayed: 
+
 
