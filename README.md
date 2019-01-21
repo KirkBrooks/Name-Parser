@@ -114,4 +114,7 @@ Editing an entity
 
 results in this form being displayed: 
 
+![alt text](https://github.com/KirkBrooks/Name-Parser/blob/master/images/scrnshot_1.png "The Entity Edit form.")
+
+This form allows the user to edit and modify the entity object. 
 
