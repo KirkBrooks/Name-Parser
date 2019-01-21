@@ -114,4 +114,4 @@ Editing an entity
 
 results in this form being displayed: 
 
-
+![alt text](https://github.com/KirkBrooks/Name-Parser/raw/master/src/common/images/icon48.png "The Entity Edit form.")
