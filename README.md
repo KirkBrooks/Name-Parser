@@ -77,6 +77,29 @@ Explicitly identifying properties
 ---
 A word can be explicitly identified as a particular property using the following:
 
-| Property | Chars | Example |
-| -------- | ----- | :------ |
-| type | =0, =1, =2 | =2 Walt Disney|
+| Entity Property | Chars | Example Input |
+| --------------- | ----- | :------ |
+| entityType | =0, =1, =2 | =2 Walt Disney|
+| entityType | $ (first char) | $walt disney | forces entity to company
+| dba | dba | joe blow dba Mongo Enterprises|
+| dba | [dba name] | joe blow [Mongo Enterprises]|
+
+The properties of a name object that can be identified: 
+
+| Name Property | Chars | Example Input | Comment |
+| ------------- | ----- | :------ | :------ |
+| last | /name/ | kirk /brooks/ | this is also seen in gedcom files |
+| last | ... , | smith jones, john | 'smith jones' is the last name |
+| prefix | < | <Mr. kirk brooks | 
+| suffix | > | kirk brooks >MD | 
+| preferred | ~ | james smith ~JD | 'JD' is his preferred name
+| preferred | ! | james !jonathan smith  | 'Jonathan' is his preferred and middle name
+
+Words enclosed in double quotes are treated as a single phrase. 
+
+## Alt Names
+
+Alternate spellings of names are designated with parenthesis. 
+` John Smith (Smyth) `
+The 
+
