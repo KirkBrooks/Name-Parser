@@ -7,10 +7,12 @@ Entities
 ---
 I use the term "entity" for each name object and the idea is I'm dealing with the name of a legal entity. For simplicity each entity is considered to be a person, company or partnership. A partnership is two people. 
 
-* Companies
+### Companies
  Company names are stored as they are entered and typed. The name is referred to as the 'corporate name'.
-* Person
- A person may have a 
+### Person
+ A person may have a first, middle and last name, a preferred name and lists of alternate first and last names. 
+### Partnerships
+ A partnership is an entity of two people. Each per
 
 
 
