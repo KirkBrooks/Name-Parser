@@ -108,8 +108,8 @@ Editing an entity
 
 ```	
  $str:="kirk Brooks & mary smith"
-	$obj:=NameStr_parse_toEntityObj ($str)
-	Entity_edit_form ($obj)
+ $obj:=NameStr_parse_toEntityObj ($str)
+ Entity_edit_form ($obj)
 ```
 
 results in this form being displayed: 
