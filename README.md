@@ -116,5 +116,64 @@ results in this form being displayed:
 
 ![alt text](https://github.com/KirkBrooks/Name-Parser/blob/master/images/scrnshot_1.png "The Entity Edit form.")
 
-This form allows the user to edit and modify the entity object. 
+This form allows the user to edit and modify the entity object. Any aspect of the entity may be changed. In this case the resulting entity object looks like this: 
 
+```
+{
+  "_ID": "1EDFA853EC0042E2BDEC4B40A9AC84C9",
+  "name": "Brooks, Kirk & Smith, Mary",
+  "entityType": 1,
+  "dba": "",
+  "email": "",
+  "members": [
+    {
+      "type": 0,
+      "first": "Kirk",
+      "middle": "",
+      "last": "Brooks",
+      "prefix": "",
+      "suffix": "",
+      "gender": "",
+      "preferred": "Kirk",
+      "altFirst": [],
+      "altLast": []
+    },
+    {
+      "type": 0,
+      "first": "Mary",
+      "middle": "",
+      "last": "Smith",
+      "prefix": "",
+      "suffix": "",
+      "gender": "",
+      "preferred": "Mary",
+      "altFirst": [],
+      "altLast": []
+    }
+  ],
+  "strInput": "kirk Brooks & mary smith",
+  "runTime": 24,
+  "showAlt": -1
+}
+```
+
+Input Subform
+---
+There is a subform named `nameParsing_dlog` you can add to your forms directly. 
+
+![alt text](https://github.com/KirkBrooks/Name-Parser/blob/master/images/scrnshot_2.png "nameParsing_dlog")
+
+Here's the demo form with a complex input name string as an example. 
+
+![alt text](https://github.com/KirkBrooks/Name-Parser/blob/master/images/scrnshot_3.png "nameParsing_dlog")
+
+Once the entity object is defined notice the expand arrow appears. Clicking this displays the edit form. 
+
+![alt text](https://github.com/KirkBrooks/Name-Parser/blob/master/images/scrnshot_4.png "nameParsing_dlog")
+
+![alt text](https://github.com/KirkBrooks/Name-Parser/blob/master/images/scrnshot_5.png "nameParsing_dlog")
+
+# Using Name Parser
+---
+
+I like to add an object field to records containing names and save the entity object there. You can also extract the names you require. The parser can be used to clean up names imported from external sources. 
