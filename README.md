@@ -12,12 +12,58 @@ I use the term "entity" for each name object and the idea is I'm dealing with th
 ### Person
  A person may have a first, middle and last name, a preferred name and lists of alternate first and last names. 
 ### Partnerships
- A partnership is an entity of two people. Each per
-
-
-
-
-
-
+ A partnership is an entity of two people. Each person has their own name object.
+ 
+ ## The Entity Object
+ NameStr_parse_toEntityObj returns an entity object. For example: 
+ 
+ ``` $obj := NameStr_parse_toEntityObj("kirk brooks") ```
+ 
+will populate $obj as:
+```
+{
+  "_ID": "C06715B08E5E485D8DAF8DA44AC248A0",
+  "name": "Brooks, Kirk",
+  "entityType": 0,
+  "dba": "",
+  "email": "",
+  "members": [
+    {
+      "type": 0,
+      "first": "Kirk",
+      "middle": "",
+      "last": "Brooks",
+      "prefix": "",
+      "suffix": "",
+      "gender": "",
+      "preferred": "Kirk",
+      "full": "",
+      "altFirst": [],
+      "altLast": [],
+      "name": "Kirk Brooks"
+    }
+  ],
+  "strInput": "kirk brooks",
+  "runTime": 100,
+  "showAlt": 1
+}
+```
 Note: A current limitation of this parser is the assumption the last name (family name) will be the last name(s) in the string. 
+
+The entity properties: 
+  * \_ID: a uuid generated to identify the entity
+  * name: the default name presentation, last name, first
+  * entityType: 0=individual; 1=partnerhsip; 2=company
+  * dba: "doing business as" name of the entity
+  * email
+  * members: array of name objects
+  * strInput: text string parsed
+  * runTime: milliseconds used by parsing
+  * showAlt: flag used by detail form
+
+The \_ID property is assigned to ensure each entity is uniquely identified. Feel free to overwrite it with your own id. 
+
+The members array contains the name object of the person, company or members of a partnership. 
+The Parser
+---
 
