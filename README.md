@@ -15,7 +15,7 @@ I use the term "entity" for each name object and the idea is I'm dealing with th
  A partnership is an entity of two people. Each person has their own name object.
  
  ## The Entity Object
- NameStr_parse_toEntityObj returns an entity object. For example: 
+ ```NameStr_parse_toEntityObj``` returns an entity object. For example: 
  
  ``` $obj := NameStr_parse_toEntityObj("kirk brooks") ```
  
@@ -44,7 +44,7 @@ will populate $obj as:
     }
   ],
   "strInput": "kirk brooks",
-  "runTime": 100,
+  "runTime": 22,
   "showAlt": 1
 }
 ```
@@ -63,7 +63,20 @@ The entity properties:
 
 The \_ID property is assigned to ensure each entity is uniquely identified. Feel free to overwrite it with your own id. 
 
-The members array contains the name object of the person, company or members of a partnership. 
+The members array contains the name object of the person, company or members of a partnership.
+
 The Parser
 ---
+The parser attempts to identify the entity type of the string and then parse the names correctly. First it checks to see if the string looks like a business. This is a difficult call to make. ```NameStr_is_bizName``` analyzes the words in a string to see if they appear in a list of 2800+ words commonly found in business names. This is very effective for names containing words like 'company', 'inc.', 'corp.'. 'contruction' and so on. It's less accurate when a company name resembles a person name: 'Walt Disney', 'JP Morgan'.
 
+Partnerships are assumed if the name contains '&' or the word 'and'. Absent either of these distinctions the string is parsed as a person. 
+
+Entity and name properties can be explicitly identified. 
+
+Explicitly identifying properties
+---
+A word can be explicitly identified as a particular property using the following:
+
+| Property | Chars | Example |
+| -------- | ----- | :------ |
+| type | =0, =1, =2 | =2 Walt Disney|
