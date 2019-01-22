@@ -1,7 +1,13 @@
 # Name Parser
 I have been working on various approaches to managing names in my 4D databases for a long time. Names are tricky. Getting them right is difficult because of spelling errors, identifying exactly what the name refers to (eg. 'Walt Disney'), handling couples or partnerships, recognizing preferred and nick names and so on. If you have ever created a database that requires records for people and businesses you know the problems. Even relatively simple situations become complicated over time. Imagine a person whose name changes as the result of marriage. A time or two perhaps. How will you manage those changes? Many times you need or want to track alternate spellings of names. Then there are the prefix and suffixes to manage. Finally, if you are tracking customer or vendor names you've got he issue of the 'dba' or 'doing business as' name. 
 
-The purpose of this component is to provide a single field I can include on a form for entering and displaying the name of a person, company or couple. 
+The purpose of this component is to provide a way of managing name entry that's simple enough to handle simple name entry (hello, John Smith) but robust enough to manage more complex situations for a person, company or couple. 
+
+### Version
+
+<img src="https://user-images.githubusercontent.com/1725068/41266195-ddf767b2-6e30-11e8-9d6b-2adf6a9f57a5.png" width="32" height="32" />
+
+The component is written in 4D v17. 
 
 Entities
 ---
@@ -68,33 +74,69 @@ The Parser
 ---
 The parser attempts to identify the entity type of the string and then parse the names correctly. First it checks to see if the string looks like a business. This is a difficult call to make. ```NameStr_is_bizName``` analyzes the words in a string to see if they appear in a list of 2800+ words commonly found in business names. This is very effective for names containing words like 'company', 'inc.', 'corp.'. 'contruction' and so on. It's less accurate when a company name resembles a person name: 'Walt Disney', 'JP Morgan'.
 
-Partnerships are assumed if the name contains '&' or the word 'and'. Absent either of these distinctions the string is parsed as a person. 
+Partnerships are assumed if the name contains '&' or the word 'and' and is not a company. Absent either of these distinctions the string is parsed as a person. 
 
-Entity and name properties can be explicitly identified. 
+Entity and name properties can be explicitly identified. These are useful 'power user' tricks and can also be used to integrate the name parser into your own projects.
+
+The parser breaks down a name string in these steps:
+
+1) guess the entity type (unless specified) 
+2) extract the dba name, if any
+3) extract any prefix and suffix
+4) extract the last (family) name
+5) the first word of the remaining names is considered the first name
+5) remaining names are considered middle name
 
 Explicitly identifying properties
 ---
 A word can be explicitly identified as a particular property using the following:
 
-| Entity Property | Chars | Example Input |
-| --------------- | ----- | :------ |
-| entityType | =0, =1, =2 | =2 Walt Disney|
-| entityType | $ (first char) | $walt disney | forces entity to company
-| dba | dba | joe blow dba Mongo Enterprises|
-| dba | [dba name] | joe blow [Mongo Enterprises]|
+| Entity Property | Chars | Effect | Example Input |
+| --------------- | ----- | :----- | :--- |
+| entityType | =0, =1, =2 | start of str - specify entity type | =2 Walt Disney|
+| entityType | $ | 1st char - forces entity to company| $walt disney|
+| dba | dba |  | joe blow dba Mongo Enterprises|
+| dba | [dba name] | | joe blow [Mongo Enterprises]|
 
-The properties of a name object that can be identified: 
+The properties of a name object that can be identified explicitly. When identified explicitly their position in the name string is irrelevant. 
 
 | Name Property | Chars | Example Input | Comment |
 | ------------- | ----- | :------ | :------ |
 | last | /name/ | kirk /brooks/ | this is also seen in gedcom files |
 | last | ... , | smith jones, john | 'smith jones' is the last name |
-| prefix | < | <Mr. kirk brooks | 
+| prefix | < | kirk brooks <Mr. | 
 | suffix | > | kirk brooks >MD | 
 | preferred | ~ | james smith ~JD | 'JD' is his preferred name
 | preferred | ! | james !jonathan smith  | 'Jonathan' is his preferred and middle name
 
-Words enclosed in double quotes are treated as a single phrase. 
+### Hyphens and Quoted Strings
+
+Words enclosed in double quotes or connected by a hyphen are treated as a single phrase. 
+
+ ``` $obj := NameStr_parse_toEntityObj("\"joe bob\" smith-jones") ```
+
+The name object will be: 
+```
+  "members": [
+    {
+      "type": 0,
+      "first": "Joe Bob",
+      "middle": "",
+      "last": "Smith-Jones",
+      "prefix": "",
+      "suffix": "",
+      "gender": "",
+      "preferred": "Joe Bob",
+      "altFirst": [],
+      "altLast": [],
+      "name": "Joe Bob Smith-Jones"
+    }
+  ]
+  ```
+  
+  ## Capitalization
+  
+  ```NameStr_capitalize``` is the capitalization function. Pass a single name or a name string. Currently optimized for a small subset of European names with some rules for handling names with "d'...", "mac..." and so on.
 
 ## Alt Names
 
@@ -159,7 +201,7 @@ This form allows the user to edit and modify the entity object. Any aspect of th
 
 Input Subform
 ---
-There is a subform named `nameParsing_dlog` you can add to your forms directly. 
+There is a subform named `nameParsing_dlog` you can add to your forms directly. Specify the subform object as an object type variable. The subform object will be populated with the entity object.
 
 ![alt text](https://github.com/KirkBrooks/Name-Parser/blob/master/images/scrnshot_2.png "nameParsing_dlog")
 
